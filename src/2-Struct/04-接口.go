@@ -46,8 +46,7 @@ func main() {
 	array[2] = 3.14
 
 	for _, value := range array {
-		// 可以获取当前接口的真正数据类型
-		switch v := value.(type) {
+		switch v := value.(type) { // 可以获取当前接口的真正数据类型
 		case int:
 			fmt.Printf("当前类型为int, 内容为：%d\n", v)
 		case string:
