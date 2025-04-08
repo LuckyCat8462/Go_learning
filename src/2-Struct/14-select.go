@@ -1,5 +1,7 @@
 package main
 
+//多个分支协调时，一般使用select
+
 import (
 	"fmt"
 	"time"
