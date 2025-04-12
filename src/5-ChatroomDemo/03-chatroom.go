@@ -59,7 +59,7 @@ func main() {
 	}
 }
 
-// 1.4.1.基础处理具体业务
+// 1.4.基础处理具体业务
 func handler(conn net.Conn) {
 	fmt.Println("启动业务...")
 	// todo代表这一部分内容之后再实现，暂时保留
@@ -78,7 +78,7 @@ func handler(conn net.Conn) {
 	// 3.2添加user到map结构
 	allUsers[newUser.id] = newUser
 
-	// 定义一个退出信号，用于监听client退出
+	// 4.3.2.定义一个退出信号，用于监听client退出
 	var isQuit = make(chan bool)
 
 	// 创建一个用于重置计数器的管道，用于告知watch函数，当前用户正在输入
@@ -98,9 +98,10 @@ func handler(conn net.Conn) {
 		// 具体业务逻辑
 
 		buf := make([]byte, 1024)
-		// 1.4.1.1读取客户端发送过来的请求数据
+		// 读取客户端发送过来的请求数据
 		// 使用connection.Read方法读取客户端发送的数据，并传入一个buffer来存储数据。
 		cnt, err := conn.Read(buf)
+		// 4.3.主动退出
 		if cnt == 0 {
 			fmt.Println("客户端主动关闭ctrl + c，准备退出, err:", err)
 			// map删除，用户， conn close掉
@@ -150,23 +151,23 @@ func handler(conn net.Conn) {
 		} else if len(userInput) > 9 && userInput[:7] == "\\rename" {
 			// [:3]  // 0, 1, 2  ==> 左闭右开
 
-			//	规则：  rename|Duke
-			// 1. 读取数据判断长度7，判断字符是rename
-			// 2. 使用|进行分割，获取|后面的部分，作为名字
-			// func Split(s, sep string) []string
-			// arry := strings.Split(userInput, "|")
-			// name := arry[1]
-			// 4.3. 更新用户名字newUser.name = Duke
+			//	规则：  rename|username
+			// 4.2.1. 读取数据判断长度7，判断字符是rename
+			// 4.2.2. 使用|进行分割，获取|后面的部分，作为名字
+			// 		函数原型：func Split(s, sep string) []string
+			// 			arry := strings.Split(userInput, "|")
+			// 			name := arry[1]
+			// 4.2.3. 更新用户名字newUser.name = neko
 			newUser.name = strings.Split(userInput, "|")[1]
 			allUsers[newUser.id] = newUser // 更新map中的user
 
-			// 4.4. 通知客户端，更新成功
+			// 4.2.4. 通知客户端，更新成功
 			newUser.msg <- "rename successfully!"
 		} else {
 			// 如果用户输入的不是命令，只是普通的聊天信息，那么只需要写到广播通道中即可，由其他的go程进行常规转发
 			message <- userInput
 		}
-
+		// 4.4.6.如果有输入，重置计数器
 		restTimer <- true
 		// -------- 业务逻辑处理  结束----------
 	}
@@ -210,6 +211,7 @@ func watch(user *User, conn net.Conn, isQuit, restTimer <-chan bool) {
 	defer fmt.Println("watch go程退出!")
 	for {
 		select {
+		// 4.3.3 主动退出
 		case <-isQuit:
 			logoutInfo := fmt.Sprintf("%s exit already!\n", user.name)
 			fmt.Println("删除当前用户:", user.name)
@@ -218,6 +220,7 @@ func watch(user *User, conn net.Conn, isQuit, restTimer <-chan bool) {
 
 			conn.Close()
 			return
+		// 	4.4.3 被动超时退出
 		case <-time.After(5 * time.Second):
 			logoutInfo := fmt.Sprintf("%s timeout exit already!\n", user.name)
 			fmt.Println("删除当前用户:", user.name)
@@ -226,6 +229,7 @@ func watch(user *User, conn net.Conn, isQuit, restTimer <-chan bool) {
 
 			conn.Close()
 			return
+		// 	4.4.4.没有超时，重置计数器
 		case <-restTimer:
 			fmt.Printf("连接%s 重置计数器!\n", user.name)
 		}
