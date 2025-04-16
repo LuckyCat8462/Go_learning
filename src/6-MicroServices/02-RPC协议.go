@@ -64,3 +64,35 @@ package main
 // 			conn.call("服务名.方法名"，传入参数，)
 // 		2.远程函数调用：像调用本地函数一样调用远程函数。
 // 		3.结束通信：关闭连接。
+
+// 三、RPC相关函数
+// 3.1.注册rpc服务
+//
+//	func (server *Server)RegisterName(name string, rcvr interface{}) error
+//	参1:服务名。字符串类型。
+//	参2:对应rpc对象。该对象绑定方法要满足如下条件:
+//		1)方法必须是导出的--包外可见。首字母大写。
+//		2)方法必须有两个参数，都是导出类型、內建类型
+//		3)方法的第二个参数必须是“指针”(传出参数)
+//		4)方法只有一个error类型的返回值
+//
+
+// 例子
+// type World struct {
+// }
+//
+// func (w *World) Hello(name string, resp *string) error {
+//
+// 	return
+// }
+// rpc.RegisterName("World", new(World))
+
+// 3.2.绑定rpc服务
+// func(server *Server) ServeConn(conn io.ReadwriteCloser
+// conn:成功建立好连接的 socket-- conn
+
+// 3.3.调用远程函数
+// func (client *client) call(serviceMethod string, args interface{}, reply interface{})error
+// 		serviceMethod:“服务名.方法名"
+// 		args:传入参数。方法需要的数据。
+// 		reply:传出参数。定义 var 变量，&变量名  完成传参。
