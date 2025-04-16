@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"net/rpc"
+	"net/rpc/jsonrpc"
 )
 
 func main() {
 	// 1. 用 rpc 链接服务器 --Dial()
-	conn, err := rpc.Dial("tcp", "127.0.0.1:8800")
-	// conn, err := jsonrpc.Dial("tcp", "127.0.0.1:8800")
+	// conn, err := rpc.Dial("tcp", "127.0.0.1:8800")
+	conn, err := jsonrpc.Dial("tcp", "127.0.0.1:8800")
 	if err != nil {
 		fmt.Println("Dial err:", err)
 		return

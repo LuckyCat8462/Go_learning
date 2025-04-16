@@ -96,3 +96,53 @@ package main
 // 		serviceMethod:“服务名.方法名"
 // 		args:传入参数。方法需要的数据。
 // 		reply:传出参数。定义 var 变量，&变量名  完成传参。
+
+// 四、json版rpc
+// 使用 nc-127.0.0.1 880 充当服务器
+// 02-client.go 充当 客户端。发起通信。-- 乱码。
+// 		因为:RPC 使用了go语言特有的数据序列化 gob。其他编程语言不能解析。
+// 		使用 通用的 序列化、反序列化。 --json、protobuf
+// 4.1.修改客户端
+//	conn, err := jsonrpc.Dial("tcp", "127.0.0.1:8800")
+// 使用 nc -|127.0.0.1 880 充当服务器
+// 看到结果:
+// {"method":"hello.HelloWorld","params":["李白"],"id":0}
+// 4.2.修改服务器端
+// 修改服务器端，使用 jsonrpc:
+// 		jsonrpc.ServeConn(conn)
+// 		使用 nc 127.0.0.1 880 充当客户端
+// 		看到结果:
+// 			echo -e '{"method":"hello.HelloWorld","params":["李白",,"id":0}'nc 127.0.0.1 8800
+// 	如果绑定方法返回值的error不为空，无论传出参数是否有值，服务端都不会返回数据
+
+// 五、rpc封装
+// 5.1.服务端封装
+
+//	1.封装接口
+//		type XXX interface {
+//			方法名(传入参数，传出参数) error
+//		}
+// 		type MyInterface interface {
+// 			HelloWorld(string, *string) error
+// 		}
+
+// 2.封装注册服务方法
+// 		func Registerservice(iMyInterface){
+// 			rpc.RegisterName("he1lo",i)
+// 		}
+
+// 5.2.客户端封装
+
+// 1.定义类
+// 		type Myclient struct {
+// 			c *rpc.client
+// 		}
+// 2.绑定类方法
+// 		func (this *Myclient)Helloworld(a string,b *string)error
+// 			return this.c.call("hello.Helloworld",a，b)
+// 		}
+// 3.初始客户端
+// 		func Initclient(addr string)error {
+// 			conn,_:= jsonrpc.Dial("tcp", adddr)
+// 			return Myclientic:conn
+// 		}
