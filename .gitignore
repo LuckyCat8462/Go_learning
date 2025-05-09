@@ -2,3 +2,5 @@ src/.idea/vcs.xml
 *.xml
 *.xml
 src/.idea/vcs.xml
+pkg/sumdb
+pkg/mod

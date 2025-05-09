@@ -1,6 +1,10 @@
 package main
 
+// 1.以server模式启动(记得ip地址要换成自己电脑上的ip地址
+// consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=n1 -bind=192.168.6.108 -ui -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0
+
 // 1.首先要cd进入到指定的目录下创建定义服务文件,来注册一个服务
+// cd /etc/consul.d/
 // 2.创建json文件,例如sudo vim web.json
 // 3.按照json的格式,填写服务信息
 // 服务定义文件在我们的配置目录下, /etc/consul.d/	,文件都是.json结尾

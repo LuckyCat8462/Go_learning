@@ -1,10 +1,10 @@
 package main
 
 import (
-	"6-MicroServices/pb"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
+	pb "src/06_MicroServicesBasics/pb06"
 )
 
 func main() {
@@ -17,10 +17,10 @@ func main() {
 	defer grpcConn.Close()
 
 	// 2. 初始化 grpc 客户端
-	grpcClient := pb.NewSayNameClient(grpcConn)
+	grpcClient := pb.NewSayHelloClient(grpcConn)
 
 	// 创建并初始化Teacher 对象
-	var teacher pb.Teacher
+	var teacher pb.Person
 	teacher.Name = "itcast"
 	teacher.Age = 18
 

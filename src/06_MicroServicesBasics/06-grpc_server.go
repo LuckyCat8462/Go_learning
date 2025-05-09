@@ -1,9 +1,10 @@
 package main
 
 import (
-	"6-MicroServices/pb"
 	"context" // context上下文. --- goroutine (go程) 之间用来进行数据传递 API 包
 	"fmt"
+	pb "src/06_MicroServicesBasics/pb06"
+
 	"google.golang.org/grpc"
 	"net"
 )
@@ -13,7 +14,7 @@ type Children struct {
 }
 
 // 按接口绑定类方法
-func (this *Children) SayHello(ctx context.Context, t *pb.Teacher) (*pb.Teacher, error) {
+func (this *Children) SayHello(ctx context.Context, t *pb.Person) (*pb.Person, error) {
 	t.Name += " is Sleeping"
 	return t, nil
 }
@@ -24,7 +25,7 @@ func main() {
 
 	// 2. 注册服务
 	// alt+enter可以选择插入的包
-	pb.RegisterSayNameServer(grpcServer, new(Children))
+	pb.RegisterSayHelloServer(grpcServer, new(Children))
 
 	// 3. 设置监听， 指定 IP、port
 	listener, err := net.Listen("tcp", "127.0.0.1:8800")
