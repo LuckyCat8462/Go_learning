@@ -7,7 +7,7 @@ message Person{
   int32 age = 2;
 }
 
-//添加rpc服务
-service Hello{
-  rpc SayHello (Person) returns (Person);
+//添加rpc 服务
+service hello{
+  rpc sayHello (Person) returns (Person);
     }
