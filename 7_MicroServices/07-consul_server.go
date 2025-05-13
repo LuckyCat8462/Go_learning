@@ -1,12 +1,17 @@
 package main
 
 import (
+	""
 	"context"
 	"fmt"
+	"src/github.com/hashicorp/consul/api-v1.32.1"
 
-	"google.golang.org/grpc"
+	// "github.com/hashicorp/consul/api"
+	// "src/github.com/hashicorp/consual/api/api"
+
 	"net"
-	pb "src/7_MicroServices/pb07"
+	pb "src/golearning/7_MicroServices/pb07"
+	"src/google.golang.org/grpc"
 )
 
 // 定义类
