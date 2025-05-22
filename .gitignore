@@ -4,3 +4,4 @@ src/.idea/vcs.xml
 src/.idea/vcs.xml
 pkg/sumdb
 pkg/mod
+bin/demo-hello.exe
