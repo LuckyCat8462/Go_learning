@@ -1,4 +1,4 @@
-package mian
+package main
 
 // 一.new 参数：
 //
