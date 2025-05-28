@@ -2,7 +2,7 @@ package main
 
 // 注销服务
 
-import "src/github.com/hashicorp/consul/api-v1.32.1"
+import "github.com/hashicorp/consul/api"
 
 func main() {
 	// 1. 初始化 consul 配置

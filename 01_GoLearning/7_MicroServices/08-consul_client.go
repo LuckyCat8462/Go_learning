@@ -3,11 +3,11 @@ package main
 import (
 	// "google.golang.org/grpc"
 	// "day02/pb"
+	pb "Go_learning/01_GoLearning/7_MicroServices/pb07"
 	"context"
 	"fmt"
-	"src/github.com/hashicorp/consul/api-v1.32.1"
-	pb "src/golearning/7_MicroServices/pb07"
-	"src/google.golang.org/grpc"
+	"github.com/hashicorp/consul/api"
+	"google.golang.org/grpc"
 	// "github.com/hashicorp/consul/api"
 	"strconv"
 )

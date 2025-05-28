@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/github.com/golang/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/github.com/protocolbuffers/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/golang.org/x/crypto" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/golang.org/x/image" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/golang.org/x/net" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/golang.org/x/sys" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/golang.org/x/text" vcs="Git" />
+  </component>
+</project>

@@ -1,16 +1,13 @@
 package main
 
 import (
+	pb "Go_learning/01_GoLearning/7_MicroServices/pb07"
 	"context"
 	"fmt"
-	// "src/github.com/hashicorp/consul/api-v1.32.1"
-
-	// "github.com/hashicorp/consul/api"
-	// "src/github.com/hashicorp/consual/api/api"
-
+	"github.com/hashicorp/consul/api"
+	"google.golang.org/grpc"
+	// "google.golang.org/grpc"
 	"net"
-	// pb "src/golearning/7_MicroServices/pb07"
-	// "src/google.golang.org/grpc"
 )
 
 // 定义类
